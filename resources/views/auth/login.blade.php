@@ -1,73 +1,73 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
+@section('title')
+Login
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-sm-8 offset-sm-2 col-md-6
+                offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                <div class="login-brand">
+                    <img src="{{ asset('assets/img/school.svg') }}" alt="Logo Sekolah" width="100"
+                        class="shadow-light rounded-circle" style="padding: 10px; background: white">
+                </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Login</h4>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <div class="card-body">
+                        <form action="{{ route('login') }}" method="post" class="needs-validation" novalidate="">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control
+                                    @error('email') is-invalid @enderror" placeholder="Your Email"
+                                    value="{{ old('email') }}" tabindex="1" required autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div class="form-group">
+                                <div class="d-block">
+                                    <label for="password"
+                                        class="control-label @error('password') is-invalid @enderror">Password</label>
+                                </div>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Password" tabindex="2" required>
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="remember" id="remember-me" class="custom-control-input"
+                                        tabindex="3">
+                                    <label for="remember-me" class="custom-control-label">
+                                        Remember Me
                                     </label>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                    Login
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

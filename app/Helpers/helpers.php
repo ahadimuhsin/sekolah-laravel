@@ -1,7 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+
 
 if (! function_exists('setActive')){
     //mengecek apakah route tertentu sedang aktif atau tidak
