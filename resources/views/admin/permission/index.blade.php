@@ -21,7 +21,7 @@
                         <form action="{{ route('admin.permission.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="q" placeholder="Cari berdasarkan nama permissions">
+                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama permissions">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-search"></i>

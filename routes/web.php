@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,12 @@ Route::prefix('admin')->group(function(){
 
         Route::resource('permission', PermissionController::class, ['as' => 'admin'])
         ->except('show', 'create', 'edit', 'update', 'delete');
+
+        Route::resource('role', RoleController::class, ['as' => 'admin'])
+        ->except('show');
+
+        Route::resource('user', UserController::class, ['as' => 'admin'])
+        ->except('show');
     });
 });
 Auth::routes(['register' => false]);
