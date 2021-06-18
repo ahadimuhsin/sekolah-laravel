@@ -16,7 +16,7 @@
             </li>
             @can('posts.index')
                 <li class="{{ setActive('admin/post') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.post.index') }}" class="nav-link">
                         <i class="fas fa-book-open"></i>
                         <span>Berita</span>
                     </a>
@@ -25,7 +25,7 @@
 
             @can('tags.index')
                 <li class="{{ setActive('admin/tag') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.tag.index') }}" class="nav-link">
                         <i class="fas fa-tags"></i>
                         <span>Tag</span>
                     </a>
@@ -34,7 +34,7 @@
 
             @can('categories.index')
                 <li class="{{ setActive('admin/category') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.category.index') }}" class="nav-link">
                         <i class="fas fa-folder"></i>
                         <span>Kategori</span>
                     </a>
