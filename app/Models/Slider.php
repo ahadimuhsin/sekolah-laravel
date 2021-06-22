@@ -11,9 +11,9 @@ class Slider extends Model
 
     protected $guarded = [];
 
-    //mutator
-    public function getImageAttribute($image)
+    //accesor
+    public function getFotoAttribute()
     {
-        return asset('storage/sliders/'.$image);
+        return asset('storage/sliders/'.$this->image);
     }
 }

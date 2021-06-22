@@ -13,7 +13,7 @@ class RoleController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:roles.index|rolse.create|roles.edit|roles.delete']);
+        $this->middleware(['permission:roles.index|roles.create|roles.edit|roles.delete']);
     }
 
     public function index(Request $request)

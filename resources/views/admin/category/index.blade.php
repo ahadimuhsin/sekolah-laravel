@@ -31,7 +31,7 @@ Kategori
                                         </a>
                                     </div>
                                     @endcan
-                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama category">
+                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama category" class="form-control">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-search"></i>

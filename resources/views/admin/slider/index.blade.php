@@ -1,78 +1,78 @@
 @extends('layouts.app')
 
 @section('title')
-Tag
+Slider
 @endsection
 
 @section('content')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tag</h1>
+                <h1>Slider</h1>
             </div>
 
             <div class="section-body">
+                @can('sliders.create')
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-tags"></i> tag</h4>
+                        <h4>
+                            <i class="fas fa-laptop"></i> Upload Slider
+                        </h4>
                     </div>
-
                     <div class="card-body">
-                        <form action="{{ route('admin.tag.index') }}" method="get">
+                        <form action="{{ route('admin.slider.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group">
-                                <div class="input-group mb-3">
-                                    @can('tags.create')
-                                    <div class="input-group-prepend">
-                                        <a href="{{ route('admin.tag.create') }}"
-                                        class="btn btn-primary"
-                                        style="padding-top: 10px">
-                                            <i class="fa fa-plus-circle"></i>
-                                            Tambah
-                                        </a>
-                                    </div>
-                                    @endcan
-                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama tag" class="form-control">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                <label for="image">Gambar</label>
+                                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
 
+                                @error('image')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <button class="btn btn-primary mr-1 btn-submit" type="submit">
+                                <i class="fa fa-paper-plane"></i> Upload
+                            </button>
+                            <button class="btn btn-warning mr-1 btn-reset" type="reset">
+                                <i class="fa fa-redo"></i> Reset
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @endcan
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-laptop"></i> Slider
+                        </h4>
+                    </div>
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="text-align: center; width: 6%">
-                                        No
-                                        </th>
-                                        <th scope="col" style="width: 15%">
-                                            Nama Tag
-                                        </th>
-                                        <th style="width: 15%" class="text-center">
-                                            Aksi
-                                        </th>
+                                        <th style="width: 6%" class="text-center">No</th>
+                                        <th>Foto</th>
+                                        <th class="text-center" style="width: 15%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($tags as $no => $tag)
+                                    @forelse ($sliders as $no => $slider)
                                     <tr>
                                         <th scoper="row" class="text-center">
-                                            {{ ++$no + ($tags->currentPage()-1) * $tags->perPage() }}
+                                            {{ ++$no + ($sliders->currentPage()-1) * $sliders->perPage() }}
                                         </th>
-                                        <td>{{ $tag->name }}</td>
+                                        <td>
+                                            <img src="{{ $slider->foto }}" alt="Foto" style="width: 150px" >
+                                        </td>
                                         <td class="text-center">
-                                            @can('tags.edit')
-                                            <a href="{{ route('admin.tag.edit', $tag->id) }}" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                            @endcan
-
-                                            @can('tags.delete')
+                                            @can('sliders.delete')
                                             <button class="btn btn-sm btn-danger" onclick="Delete(this.id)"
-                                            id="{{ $tag->id }}">
+                                            id="{{ $slider->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             @endcan
@@ -85,8 +85,8 @@ Tag
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="text-center">
-                                {{ $tags->links("vendor.pagination.bootstrap-4") }}
+                            <div style="text-align: center">
+                                {{$sliders->links("vendor.pagination.bootstrap-4")}}
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@ Tag
         }).then(function(isConfirm){
             if(isConfirm){
                 $.ajax({
-                    url: "{{ url('admin/tag') }}/" +id,
+                    url: "{{ url('admin/slider') }}/" +id,
                     data: {
                         "id" : id,
                         "_token": token
@@ -146,7 +146,8 @@ Tag
                                 showConfirmButton: false,
                                 showCancelButton: false,
                                 buttons: false
-                            }).then(function(){
+                            })
+                            .then(function(){
                                 location.reload();
                             });
                         }

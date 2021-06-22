@@ -6,6 +6,10 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\PhotoController;
+use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -47,6 +51,18 @@ Route::prefix('admin')->group(function(){
 
         Route::resource('post', PostController::class, ['as' => 'admin'])
         ->except('show');
+
+        Route::resource('event', EventController::class, ['as' => 'admin'])
+        ->except('show');
+
+        Route::resource('photo', PhotoController::class, ['as' => 'admin'])
+        ->except('show', 'edit', 'update');
+
+        Route::resource('video', VideoController::class, ['as' => 'admin'])
+        ->except('show');
+
+        Route::resource('slider', SliderController::class, ['as' => 'admin'])
+        ->except('show', 'edit', 'create', 'update');
     });
 });
 Auth::routes(['register' => false]);

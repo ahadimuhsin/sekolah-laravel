@@ -63,7 +63,12 @@ class PostController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs('public/posts', $image->hashName());
+        // $file_name = Str::slug($request->title, '-')."-".date('Y-m-d H:i:s')."-".auth()->user()->id.".".$image->extension();
+        // dd(gettype($file_name));
+        // $file_name="1.jpg";
+        // $save_file = $image->storeAs('posts', $file_name, 'public');
+        $image->storeAs('posts', $image->hashName(), 'public');
+        // dd($save_file);
 
         $post = Post::create([
             'image' => $image->hashName(),
@@ -109,6 +114,7 @@ class PostController extends Controller
     {
         $tags = Tag::latest()->get();
         $categories = Category::latest()->get();
+        // dd($post);
 
         return view('admin.post.edit', compact('tags', 'categories', 'post'));
     }
@@ -130,6 +136,7 @@ class PostController extends Controller
 
         $post = Post::findOrFail($post->id);
 
+
         //kalo tidak ada request perubahan gambar
         if($request->file('image') == ""){
             $post->update([
@@ -141,11 +148,16 @@ class PostController extends Controller
         }
         else
         {
-            //hapus gambar lama
+            // //hapus gambar lama
+            // if($post->image){
+            //     dd("AAAAA");
+            // }
             Storage::disk('local')->delete('public/posts/'.$post->image);
-
+            // dd("CCC");
             //upload gambar baru
             $image = $request->file('image');
+            // $file_name = "post-".$request->title.date('Y-m-d H:i:s')."-".auth()->user()->id.".".$request->file('image')->getClientOriginalExtension();
+            // $image->storeAs('public/posts', $file_name);
             $image->storeAs('public/posts', $image->hashName());
 
             $post->update([
@@ -156,18 +168,18 @@ class PostController extends Controller
                 'image' => $image->hashName()
             ]);
 
-            //sync tags
-            $post->tags()->sync($request->tags);
+        }
+        //sync tags
+        $post->tags()->sync($request->tags);
 
-            if($post){
-                //redirect dengan pesan sukses
-                return redirect()->route('admin.post.index')->with(['success' =>
-                'Data Berhasil Diperbarui!']);
-            }
-            else{
-                return redirect()->route('admin.post.index')->with(['error' =>
-                'Data Gagal Diperbarui!']);
-            }
+        if($post){
+            //redirect dengan pesan sukses
+            return redirect()->route('admin.post.index')->with(['success' =>
+            'Data Berhasil Diperbarui!']);
+        }
+        else{
+            return redirect()->route('admin.post.index')->with(['error' =>
+            'Data Gagal Diperbarui!']);
         }
     }
 

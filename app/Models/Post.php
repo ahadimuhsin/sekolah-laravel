@@ -28,9 +28,9 @@ class Post extends Model
 
 
     //mutator
-    public function getImageAttribute($image)
+    public function getFotoAttribute()
     {
-        return asset('storage/posts/'.$image);
+        return asset('storage/posts/'.$this->image);
     }
 
     public function getCreatedAttribute($date){

@@ -48,7 +48,7 @@ Ubah Berita
 
                         <div class="form-group">
                             <label for="title">Kategori</label>
-                            <select name="post_id"
+                            <select name="category_id"
                                 class="form-control select-post @error('post_id') is-invalid @enderror">
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach ($categories as $category)

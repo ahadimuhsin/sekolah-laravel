@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
 @section('title')
-Tag
+Event
 @endsection
 
 @section('content')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tag</h1>
+                <h1>Event</h1>
             </div>
 
             <div class="section-body">
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-tags"></i> tag</h4>
+                        <h4><i class="fas fa-bell"></i> Event</h4>
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.tag.index') }}" method="get">
+                        <form action="{{ route('admin.event.index') }}" method="get">
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    @can('tags.create')
+                                    @can('events.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.tag.create') }}"
+                                        <a href="{{ route('admin.event.create') }}"
                                         class="btn btn-primary"
                                         style="padding-top: 10px">
                                             <i class="fa fa-plus-circle"></i>
@@ -31,7 +31,7 @@ Tag
                                         </a>
                                     </div>
                                     @endcan
-                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama tag" class="form-control">
+                                    <input type="text" name="keyword" placeholder="Cari berdasarkan nama event" class="form-control">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-search"></i>
@@ -48,8 +48,14 @@ Tag
                                         <th scope="col" style="text-align: center; width: 6%">
                                         No
                                         </th>
-                                        <th scope="col" style="width: 15%">
-                                            Nama Tag
+                                        <th scope="col">
+                                            Event
+                                        </th>
+                                        <th scope="col">
+                                            Lokasi
+                                        </th>
+                                        <th scope="col">
+                                            Tanggal
                                         </th>
                                         <th style="width: 15%" class="text-center">
                                             Aksi
@@ -57,22 +63,24 @@ Tag
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($tags as $no => $tag)
+                                    @forelse ($events as $no => $event)
                                     <tr>
                                         <th scoper="row" class="text-center">
-                                            {{ ++$no + ($tags->currentPage()-1) * $tags->perPage() }}
+                                            {{ ++$no + ($events->currentPage()-1) * $events->perPage() }}
                                         </th>
-                                        <td>{{ $tag->name }}</td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>{{ $event->location }}</td>
+                                        <td>{{ TanggalID($event->date) }}</td>
                                         <td class="text-center">
-                                            @can('tags.edit')
-                                            <a href="{{ route('admin.tag.edit', $tag->id) }}" class="btn btn-primary btn-sm">
+                                            @can('events.edit')
+                                            <a href="{{ route('admin.event.edit', $event->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                             @endcan
 
-                                            @can('tags.delete')
+                                            @can('events.delete')
                                             <button class="btn btn-sm btn-danger" onclick="Delete(this.id)"
-                                            id="{{ $tag->id }}">
+                                            id="{{ $event->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             @endcan
@@ -80,13 +88,13 @@ Tag
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Data Kosong</td>
+                                        <td colspan="5" class="text-center">Data Kosong</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                             <div class="text-center">
-                                {{ $tags->links("vendor.pagination.bootstrap-4") }}
+                                {{ $events->links("vendor.pagination.bootstrap-4") }}
                             </div>
                         </div>
                     </div>
@@ -117,7 +125,7 @@ Tag
         }).then(function(isConfirm){
             if(isConfirm){
                 $.ajax({
-                    url: "{{ url('admin/tag') }}/" +id,
+                    url: "{{ url('admin/event') }}/" +id,
                     data: {
                         "id" : id,
                         "_token": token

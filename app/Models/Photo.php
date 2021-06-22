@@ -11,9 +11,9 @@ class Photo extends Model
 
     protected $guarded = [];
 
-    //mutator
-    public function getImageAttribute($image)
+    //accesor
+    public function getFotoAttribute()
     {
-        return asset('storage/photos/'.$image);
+        return asset('storage/photos/'.$this->image);
     }
 }

@@ -43,7 +43,7 @@
 
             @can('events.index')
                 <li class="{{ setActive('admin/event') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.event.index') }}" class="nav-link">
                         <i class="fas fa-bell"></i>
                         <span>Agenda</span>
                     </a>
@@ -57,7 +57,7 @@
 
             @can('photos.index')
                 <li class="{{ setActive('admin/photo') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.photo.index') }}" class="nav-link">
                         <i class="fas fa-image"></i>
                         <span>Foto</span>
                     </a>
@@ -66,7 +66,7 @@
 
             @can('videos.index')
                 <li class="{{ setActive('admin/video') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.video.index') }}" class="nav-link">
                         <i class="fas fa-video"></i>
                         <span>Video</span>
                     </a>
@@ -81,7 +81,7 @@
 
             @can('sliders.index')
                 <li class="{{ setActive('admin/slider') }}">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.slider.index') }}" class="nav-link">
                         <i class="fas fa-laptop"></i>
                         <span>Sliders</span>
                     </a>

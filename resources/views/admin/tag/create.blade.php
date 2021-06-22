@@ -5,13 +5,6 @@ Tambah Tag
 @endsection
 
 @section('content')
-@extends('layouts.app')
-
-@section('title')
-Tambah Tag
-@endsection
-
-@section('content')
 <div class="main-content">
     <div class="section">
         <div class="section-header">
