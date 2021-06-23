@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,7 @@ use App\Http\Controllers\Admin\PermissionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'showLoginForm']);
 // Route Admin
 Route::prefix('admin')->group(function(){
     Route::group(['middleware' => 'auth'], function(){

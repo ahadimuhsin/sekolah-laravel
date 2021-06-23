@@ -12,6 +12,7 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $appends = ['foto'];
 
     //relationships
     //one to many
