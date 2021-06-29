@@ -31,7 +31,7 @@ class TagController extends Controller
             return response()->json([
                 'response' => [
                     'status' => 200,
-                    'message' => 'List Data Post Berdasarkan Tags'
+                    'message' => 'Berita Berdasarkan Tag '.$tag->name
                 ],
                 'data' => $tag->posts()->latest()->paginate(6)
             ],200);
